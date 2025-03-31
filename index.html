@@ -125,27 +125,6 @@
             font-weight: bold;
             margin: 10px 0;
         }
-        /* ▼▼▼ 在此处添加空状态样式 ▼▼▼ */
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #666;
-            grid-column: 1 / -1; /* 跨越多列布局 */
-            font-size: 1.1rem;
-            background: #f9f9f9;
-            border-radius: 8px;
-            margin: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .empty-state::before {
-            content: "😢";
-            font-size: 3em;
-            display: block;
-            margin-bottom: 15px;
-        }
-
-        /* ▲▲▲ 空状态样式结束 ▲▲▲ */
         
         /* 分页 */
         .pagination {
@@ -283,13 +262,6 @@
         // 渲染商品
         function renderProducts() {
             showLoader();
-            // 添加空状态提示
-            if (productsToShow.length === 0) {
-               grid.innerHTML = `<div class="empty-state">暂无相关商品</div>`;
-               pagination.innerHTML = '';
-               hideLoader();
-               return;
-            }
             const start = (currentPage - 1) * itemsPerPage;
             const end = start + itemsPerPage;
             const productsToShow = filteredProducts.slice(start, end);
