@@ -38,6 +38,13 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* 添加空状态样式 */
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+            grid-column: 1 / -1;
+        }
         /* 搜索和分类 */
         .filters {
             padding: 15px;
@@ -241,7 +248,7 @@
                     filterProducts();
                 });
             });
-            renderProducts();
+            filterProducts();  // 关键修复点
         }
 
         // 过滤和搜索
@@ -262,6 +269,13 @@
         // 渲染商品
         function renderProducts() {
             showLoader();
+            // 添加空状态提示
+            if (productsToShow.length === 0) {
+               grid.innerHTML = `<div class="empty-state">暂无相关商品</div>`;
+               pagination.innerHTML = '';
+               hideLoader();
+               return;
+            }
             const start = (currentPage - 1) * itemsPerPage;
             const end = start + itemsPerPage;
             const productsToShow = filteredProducts.slice(start, end);
